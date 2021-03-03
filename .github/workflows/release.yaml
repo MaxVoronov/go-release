@@ -30,6 +30,7 @@ jobs:
           docker rm -f -v $CONTAINER_ID
           bin/gorelease version
       - name: Create release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,6 +44,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Release Asset
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
