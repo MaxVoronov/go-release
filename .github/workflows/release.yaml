@@ -1,15 +1,14 @@
 name: Create new release on merging to master
 on:
-  push:
-  #pull_request:
-  #  branches:
-  #    - "master"
-  #  types: ['closed']
+  pull_request:
+    branches:
+      - "master"
+    types: ['closed']
 jobs:
   build:
     name: Build golang binary
     runs-on: ubuntu-latest
-    #if: github.event.pull_request.merged && github.event.action == "closed"
+    if: github.event.pull_request.merged && github.event.action == "closed"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,10 +36,6 @@ jobs:
         with:
           release_name: Release ${{ env.RELEASE_VERSION }}
           tag_name: ${{ env.RELEASE_VERSION }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
           draft: false
           prerelease: false
       - name: Upload Release Asset
